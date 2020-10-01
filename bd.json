@@ -1,0 +1,22 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "nom": "Farine",
+      "quantité restante": 1.5,
+      "img": "/image.jpg"
+    },
+    {
+      "id": "1",
+      "nom": "Produit 2",
+      "quantité restante": 1,
+      "img": "/image.jpg"
+    },
+    {
+      "id": "1",
+      "nom": "Produit 3",
+      "quantité restante": 0,
+      "img": "/image.jpg"
+    }
+  ]
+}
