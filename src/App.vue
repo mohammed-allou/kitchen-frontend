@@ -17,23 +17,21 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld />
+      <products />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+import products from "./components/products";
 
 export default {
   name: "App",
 
   components: {
-    HelloWorld,
+    products,
   },
 
-  data: () => ({
-    //
-  }),
+  data: () => ({}),
 };
 </script>
