@@ -4,6 +4,7 @@ import router from './router'
 import vuetify from './plugins/vuetify';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import store from './store'
 import VueResource from 'vue-resource'
 Vue.config.productionTip = false
 
@@ -13,6 +14,7 @@ new Vue({
   axios,
   VueAxios,
   VueResource,
+  store,
   render: h => h(App)
 }).$mount('#app')
 const auth = axios.create({

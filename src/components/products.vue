@@ -7,7 +7,7 @@
           <v-card-title>{{ product.nom }}</v-card-title>
           <v-card-text>
             <div class="my-4 subtitle-1">
-              Quantité Restante : {{ product.quantité }} kg
+              Quantité Restante : {{ product.quantite }} kg
             </div>
           </v-card-text>
         </v-card>
@@ -30,8 +30,7 @@ export default {
   }),
   mounted() {
        
-    let api =  "https://e503eef4-bd94-4dd6-9fb0-d6719bc06ea7.mock.pstmn.io/products"
-    this.axios.get(api)
+    axios.get("https://e503eef4-bd94-4dd6-9fb0-d6719bc06ea7.mock.pstmn.io/products")
       .then((response) => {
         console.log(response.data);
         this.products = response.data;

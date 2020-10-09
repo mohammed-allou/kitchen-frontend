@@ -1,37 +1,47 @@
 <template>
-  <v-app>
+<v-app>
     <v-app-bar app color="gray" dark>
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Produits</v-toolbar-title>
+        <v-toolbar-title>Produits</v-toolbar-title>
 
-      <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-      <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
+        <v-btn icon>
+            <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn icon>
+            <v-icon>mdi-heart</v-icon>
+        </v-btn>
     </v-app-bar>
 
     <v-main>
-      <products />
+        {{ this.$store.state.test }}
+        <products />
     </v-main>
-  </v-app>
+</v-app>
 </template>
 
 <script>
 import products from "./components/products";
+import {
+    mapState
+} from "vuex";
 
 export default {
-  name: "App",
+    name: "App",
 
-  components: {
-    products,
-  },
+    components: {
+        products,
+    },
+    mounted() {
+        this.$store.dispatch("products_");
+    },
 
-  data: () => ({}),
+    computed: {
+        ...mapState(["products"]),
+    },
+    data: () => ({}),
 };
 </script>
