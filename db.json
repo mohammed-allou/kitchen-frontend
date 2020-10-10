@@ -1,19 +1,20 @@
-{
-  "posts": [
-    {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "typicode"
+[
+  {
+    "id": "1",
+    "nom": "Farine",
+    "quantite": 1.5,
+    "img": "/image.jpg"
+  },
+  {
+    "id": "2",
+    "nom": "Produit 2",
+    "quantite": 1,
+    "img": "/image.jpg"
+  },
+  {
+    "id": "3",
+    "nom": "Produit 3",
+    "quantite": 0,
+    "img": "/image.jpg"
   }
-}
+]
