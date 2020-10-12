@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify';
 import axios from 'axios'
-import VueAxios from 'vue-axios'
+
 import VueResource from 'vue-resource'
 import store from './store'
 
@@ -13,7 +13,7 @@ new Vue({
   router,
   vuetify,
   axios,
-  VueAxios,
+ 
   store,
   VueResource,
   render: h => h(App)
