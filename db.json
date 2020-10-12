@@ -1,20 +1,23 @@
 [
   {
     "id": "1",
-    "nom": "Farine",
-    "quantite": 1.5,
+    "name": "Farine",
+    "quantity": 1.5,
+    "unit":"Kg",
     "img": "/image.jpg"
   },
   {
     "id": "2",
-    "nom": "Produit 2",
-    "quantite": 1,
+    "name": "Produit 2",
+    "quantity": 1,
+    "unit":"L",
     "img": "/image.jpg"
   },
   {
     "id": "3",
-    "nom": "Produit 3",
-    "quantite": 0,
+    "name": "Produit 3",
+    "quantity": 0,
+    "unit":"Kg",
     "img": "/image.jpg"
   }
 ]

@@ -1,28 +1,26 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import {URL_API_PRODUCT} from './constants'
 
-Vue.use(Vuex, axios)
-const store= new Vuex.Store({
+Vue.use(Vuex)
+const store = new Vuex.Store({
     state: {
-         products: [],
-        test : 'Test bach nchoufou'
+        products: [],
+
     },
     mutations: {
-        SET_POSTS(state, products) {
+        SET_PRODUCTS(state, products) {
             state.products = products
         }
     },
     actions: {
-        Products_({commit}) {
+        getProducts({ commit }) {            
             axios
-                .get(
-                    "https://e503eef4-bd94-4dd6-9fb0-d6719bc06ea7.mock.pstmn.io/products"
-                )
+                .get(`${URL_API_PRODUCT}/products`)
                 .then(response => {
-                    console.log(response)
                     let products = response.data
-                    commit('SET_POSTS', products)
+                    commit('SET_PRODUCTS', products)
                 });
         }
     }

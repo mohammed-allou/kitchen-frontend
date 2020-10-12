@@ -4,8 +4,9 @@ import router from './router'
 import vuetify from './plugins/vuetify';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import store from './store'
 import VueResource from 'vue-resource'
+import store from './store'
+
 Vue.config.productionTip = false
 
 new Vue({
@@ -13,12 +14,8 @@ new Vue({
   vuetify,
   axios,
   VueAxios,
-  VueResource,
   store,
+  VueResource,
   render: h => h(App)
 }).$mount('#app')
-const auth = axios.create({
-  baseURL: "https://e503eef4-bd94-4dd6-9fb0-d6719bc06ea7.mock.pstmn.io/products"
-})
-auth.defaults.headers.common['auth'] = 'products'
-export default auth
+

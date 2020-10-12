@@ -17,43 +17,16 @@
     </v-app-bar>
 
     <v-main>
-      {{ this.$store.state.test }}
-      <products />
+      <router-view></router-view>
     </v-main>
-
-    <v-footer padless>
-      <v-card class="flex">
-        <v-card-title class="darken-1">
-          <v-spacer></v-spacer>
-
-          <v-btn v-for="icon in icons" :key="icon" class="mx-4" icon>
-            <v-icon size="24px" class="teal--text">{{ icon }}</v-icon>
-          </v-btn>
-        </v-card-title>
-      </v-card>
-    </v-footer>
   </v-app>
 </template>
 
 <script>
-import products from "./components/products";
-import { mapState } from "vuex";
+
 
 export default {
   name: "App",
 
-  components: {
-    products,
-  },
-  mounted() {
-    this.$store.dispatch("products_");
-  },
-
-  computed: {
-    ...mapState(["products"]),
-  },
-  data: () => ({
-    icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
-  }),
 };
 </script>

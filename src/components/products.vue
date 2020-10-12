@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <v-container class="teal lighten" fluid >
+    <v-container class="teal lighten" fluid>
       <v-row dense>
-        <v-col class="d-flex justify-space-between"  >
+        <v-col class="d-flex justify-space-between">
           <v-card
             class="pa-3"
             outlined
@@ -11,11 +11,11 @@
           >
             <v-img height="200" contain :src="product.img"></v-img>
 
-            <v-card-title class="text-center">{{ product.nom }}</v-card-title>
+            <v-card-title class="text-center">{{ product.name }}</v-card-title>
 
             <v-card-text>
               <div class="my-4 subtitle-1">
-                Quantité Restante : {{ product.quantite }} kg
+                Quantité Restante : {{ product.quantity }} {{ product.unit }}
               </div>
             </v-card-text>
           </v-card>
@@ -26,30 +26,17 @@
 </template>
 
 <script>
-import Vue from "vue";
-import axios from "axios";
-import VueAxios from "vue-axios";
-import VueResource from "vue-resource";
-Vue.use(axios, VueAxios, VueResource);
+import { mapState } from "vuex";
+
 export default {
   name: "products",
 
-  data: () => ({
-    products: [],
-    icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
-    justify: ["start", "end", "center", "space-between", "space-around"],
-  }),
+  data: () => ({}),
+  computed: {
+    ...mapState(["products"]),
+  },
   mounted() {
-    axios
-      .get(
-        "https://e503eef4-bd94-4dd6-9fb0-d6719bc06ea7.mock.pstmn.io/products"
-      )
-      .then((response) => {
-        this.products = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.$store.dispatch("getProducts");
   },
 };
 </script>
