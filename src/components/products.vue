@@ -3,7 +3,13 @@
     <v-container class="teal lighten" fluid>
       <v-row dense>
         <v-col class="d-flex justify-space-between">
+          <div v-if="isError">
+            <v-alert color="red" dismissible type="success">{{
+              error
+            }}</v-alert>
+          </div>
           <v-card
+            v-else
             class="pa-3"
             outlined
             v-for="product in products"
@@ -31,9 +37,8 @@ import { mapState } from "vuex";
 export default {
   name: "products",
 
-  data: () => ({}),
   computed: {
-    ...mapState(["products"]),
+    ...mapState(["products", "isError", "error"]),
   },
   mounted() {
     this.$store.dispatch("getProducts");
