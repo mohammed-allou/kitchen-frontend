@@ -1,6 +1,6 @@
 <template>
-  <v-timeline
-    ><div v-if="isError">
+  <v-timeline>
+    <div v-if="isError">
       <v-alert color="red" dismissible type="success">{{ error }}</v-alert>
     </div>
     <v-timeline-item v-else v-for="product in products" :key="product.id">
