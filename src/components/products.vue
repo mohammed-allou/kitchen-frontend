@@ -1,10 +1,10 @@
 <template>
-  <v-timeline>
-    <v-timeline-item v-for="product in products" :key="product.id">
-      <div v-if="isError">
-        <v-alert color="red" dismissible type="success">{{ error }}</v-alert>
-      </div>
-      <v-card v-else class="elevation-5 mx-auto" max-width="360">
+  <v-timeline
+    ><div v-if="isError">
+      <v-alert color="red" dismissible type="success">{{ error }}</v-alert>
+    </div>
+    <v-timeline-item v-else v-for="product in products" :key="product.id">
+      <v-card class="elevation-5 mx-auto" max-width="360">
         <v-img height="200px" contain :src="product.img"></v-img>
 
         <v-card-title class="headline">{{ product.name }}</v-card-title>
