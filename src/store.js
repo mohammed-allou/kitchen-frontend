@@ -30,10 +30,21 @@ const store = new Vuex.Store({
                 .catch(error => {
                     commit('SET_ERROR', error)
                 })
-        }
+        },
+        createProduct({ commit }) {
+            axios
+                .post(`${URL_API_PRODUCT}/products`)
+                .then(response => {
+                    let products = response.data
+                    commit('SET_PRODUCTS', products)
+                })
+                .catch(error => {
+                    commit('SET_ERROR', error)
+                })
+
+        },
+        productEdit(){},
+        productDelete(){}
     },
-
-
-
 })
 export default store

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import products from '../components/products'
+import Ajouter from '../components/Ajouter'
 Vue.use(VueRouter)
 
 const routes = [
@@ -8,6 +9,12 @@ const routes = [
     path: '/',
     name: 'products',
     component: products
+  },
+
+  {
+    path: '/Ajouter',
+    name: 'Ajouter',
+    component: Ajouter
   },
 ]
 
