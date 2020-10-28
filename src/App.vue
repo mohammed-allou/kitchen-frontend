@@ -5,7 +5,16 @@
 
       <v-toolbar-title>Produits</v-toolbar-title>
 
+      <div>
+        <v-btn router to="/" color="red" dark big absolute botton left fab>
+          <v-icon>mdi-home</v-icon>
+        </v-btn>
+      </div>
       <v-spacer></v-spacer>
+      <div>
+        <v-btn class="mx-2" fab color="success" router to="/addProduct">
+        <v-icon>mdi-plus</v-icon></v-btn>
+      </div>
 
       <v-btn icon>
         <v-icon>mdi-magnify</v-icon>

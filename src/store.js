@@ -18,6 +18,9 @@ const store = new Vuex.Store({
             state.isError = true
             state.error = errorMessage
         },
+        addProduct(state,products){
+            state.products.push(products)
+        }
     },
     actions: {
         getProducts({ commit }) {
@@ -30,6 +33,15 @@ const store = new Vuex.Store({
                 .catch(error => {
                     commit('SET_ERROR', error)
                 })
+        },
+        addProduct() {
+            axios.post(`${URL_API_PRODUCT}/products`, this.product)
+                .then(response=> {
+                    console.log(response);
+                })
+                .catch( error => {
+                    console.log(error);
+                });
         }
     },
 
