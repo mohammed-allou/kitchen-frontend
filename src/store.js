@@ -8,7 +8,9 @@ const store = new Vuex.Store({
     state: {
         products: [],
         error: '',
-        isError: false
+        isError: false,
+        messageOkCreation: "",
+        messageErrorCreation: ""
     },
     mutations: {
         SET_PRODUCTS(state, products) {
@@ -20,6 +22,12 @@ const store = new Vuex.Store({
         },
         addProduct(state,products){
             state.products.push(products)
+        },
+        CREATION_OK(state) {
+            state.messageOkCreation = "Le produit est bien enregistré."
+        },
+        CREATION_ERROR(state) {
+            state.messageErrorCreation = "Il y a un problème coté serveur.. merci de tester ultérieurement.."
         }
     },
     actions: {
@@ -34,18 +42,17 @@ const store = new Vuex.Store({
                     commit('SET_ERROR', error)
                 })
         },
-        addProduct() {
-            axios.post(`${URL_API_PRODUCT}/products`, this.product)
+        addProduct({ commit}, product) {
+            axios.post(`${URL_API_PRODUCT}/products`, product, {headers: {'Content-Type': 'application/json'}})
                 .then(response=> {
                     console.log(response);
+                    commit('CREATION_OK')
                 })
                 .catch( error => {
                     console.log(error);
+                    commit('CREATION_ERROR')
                 });
         }
     },
-
-
-
 })
 export default store

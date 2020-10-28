@@ -1,17 +1,24 @@
 <template>
-  <v-form ref="form" v-model="valid" method="post" lazy-validation>
+  <v-form method="post">
+    
+    <v-alert type="success" v-if="messageOkCreation != ''">{{messageOkCreation}}</v-alert>
+    <v-alert type="error" v-if="messageErrorCreation != ''">{{messageErrorCreation}}</v-alert>
+
     <v-text-field
       v-model="product.name"
       :counter="10"
       label="Name"
       required
     ></v-text-field>
+    
     <v-text-field
       v-model="product.quantity"
       label="Quantity"
       required
     ></v-text-field>
+    
     <v-text-field v-model="product.unite" label="Unite" required></v-text-field>
+    
     <v-text-field v-model="product.img" label="Image" required></v-text-field>
 
     <v-btn
@@ -22,13 +29,13 @@
     >
       Validate
     </v-btn>
-    <v-btn type="submit" color="warning" @click.prevent="resetValidation">
+    <v-btn color="warning" @click.prevent="resetValidation">
       Reset Validation
     </v-btn>
   </v-form>
 </template>
 <script>
-import { URL_API_PRODUCT } from "../constants";
+import { mapState } from "vuex";
 
 export default {
   name: "addProduct",
@@ -43,24 +50,12 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState(["messageErrorCreation", "messageOkCreation"]),
+  },
   methods: {
     addProduct() {
-      console.log(this.product);
-      this.$http
-        .post(`${URL_API_PRODUCT}/products`, this.product, {
-          headers: { "content-type": "application/json" },
-        })
-        .then(
-          (result) => {
-            console.log(this.response);
-            console.log(result.product);
-
-            // this.response = result.product;
-          },
-          (error) => {
-            console.error(error);
-          }
-        );
+      this.$store.dispatch("addProduct", this.product);
     },
     resetValidation() {
       this.$refs.form.resetValidation();
