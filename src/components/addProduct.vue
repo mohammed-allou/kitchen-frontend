@@ -1,8 +1,11 @@
 <template>
   <v-form method="post">
-    
-    <v-alert type="success" v-if="messageOkCreation != ''">{{messageOkCreation}}</v-alert>
-    <v-alert type="error" v-if="messageErrorCreation != ''">{{messageErrorCreation}}</v-alert>
+    <v-alert type="success" v-if="messageOkCreation != ''">{{
+      messageOkCreation
+    }}</v-alert>
+    <v-alert type="error" v-if="messageErrorCreation != ''">{{
+      messageErrorCreation
+    }}</v-alert>
 
     <v-text-field
       v-model="product.name"
@@ -10,15 +13,15 @@
       label="Name"
       required
     ></v-text-field>
-    
+
     <v-text-field
       v-model="product.quantity"
       label="Quantity"
       required
     ></v-text-field>
-    
+
     <v-text-field v-model="product.unite" label="Unite" required></v-text-field>
-    
+
     <v-text-field v-model="product.img" label="Image" required></v-text-field>
 
     <v-btn
@@ -29,13 +32,12 @@
     >
       Validate
     </v-btn>
-    <v-btn color="warning" @click.prevent="resetValidation">
-      Reset Validation
-    </v-btn>
+    
   </v-form>
 </template>
 <script>
 import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "addProduct",
@@ -43,6 +45,7 @@ export default {
     return {
       valid: true,
       product: {
+        id: "",
         name: "",
         quantity: "",
         unite: "",
@@ -52,14 +55,14 @@ export default {
   },
   computed: {
     ...mapState(["messageErrorCreation", "messageOkCreation"]),
+    ...mapGetters(["products"]),
   },
+  
   methods: {
     addProduct() {
       this.$store.dispatch("addProduct", this.product);
     },
-    resetValidation() {
-      this.$refs.form.resetValidation();
-    },
+   
   },
 };
 </script>

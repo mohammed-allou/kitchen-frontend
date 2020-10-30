@@ -20,7 +20,7 @@ const store = new Vuex.Store({
             state.isError = true
             state.error = errorMessage
         },
-        addProduct(state,products){
+        addProduct(state, products) {
             state.products.push(products)
         },
         CREATION_OK(state) {
@@ -28,6 +28,19 @@ const store = new Vuex.Store({
         },
         CREATION_ERROR(state) {
             state.messageErrorCreation = "Il y a un problème coté serveur.. merci de tester ultérieurement.."
+        },
+        EDIT_PRODUCT() {
+
+            
+        },
+        DELETE_PRODUCT(state, product) {
+            let index = state.products.findIndex(item => item.id === product.id)
+            state.products.splice(index, 1)
+        }
+    },
+    getters: {
+        products: state => {
+            return state.products
         }
     },
     actions: {
@@ -42,16 +55,37 @@ const store = new Vuex.Store({
                     commit('SET_ERROR', error)
                 })
         },
-        addProduct({ commit}, product) {
-            axios.post(`${URL_API_PRODUCT}/products`, product, {headers: {'Content-Type': 'application/json'}})
-                .then(response=> {
+        addProduct({ commit }, product) {
+            axios.post(`${URL_API_PRODUCT}/products`, product, { headers: { 'Content-Type': 'application/json' } })
+                .then(response => {
                     console.log(response);
                     commit('CREATION_OK')
                 })
-                .catch( error => {
+                .catch(error => {
                     console.log(error);
                     commit('CREATION_ERROR')
                 });
+        },
+        editProduct({ commit }, product) {
+            axios.put(`${URL_API_PRODUCT}/products/${product.id}`, product, { headers: { 'Content-Type': 'application/json' } } )
+                .then(response => {
+                    console.log(response);
+                    commit('EDIT_PRODUCT', product)
+
+                })
+                .catch(error => {
+                    console.log(error);
+
+                });
+        },
+        deleteProduct({ commit }, product) {
+            axios.delete(`${URL_API_PRODUCT}/products/${product.id}`)
+                .then(response => {
+                    console.log(response);
+                    commit('DELETE_PRODUCT', product)
+                }).catch(err => {
+                    console.log(err)
+                })
         }
     },
 })
