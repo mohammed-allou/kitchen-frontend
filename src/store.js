@@ -38,11 +38,8 @@ const store = new Vuex.Store({
             state.products.splice(index, 1)
         }
     },
-    getters: {
-        products: state => {
-            return state.products
-        }
-    },
+    
+    
     actions: {
         getProducts({ commit }) {
             axios
@@ -56,7 +53,7 @@ const store = new Vuex.Store({
                 })
         },
         addProduct({ commit }, product) {
-            axios.post(`${URL_API_PRODUCT}/products`, product, { headers: { 'Content-Type': 'application/json' } })
+            axios.post(`${URL_API_PRODUCT}/products`, product)
                 .then(response => {
                     console.log(response);
                     commit('CREATION_OK')
