@@ -1,5 +1,7 @@
 <template>
   <div>
+    <deleteProduct v-if="openDelete" :product="produit" :open="openDelete" />
+
     <v-timeline>
       <div v-if="isError">
         <v-alert color="red" dismissible type="success">{{ error }}</v-alert>
@@ -18,7 +20,16 @@
           <div class="text-center ma-2">
             <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" class="pink" dark small fab color="warning" @click.prevent="remplirProduct(product)">
+                <v-btn
+                  v-bind="attrs"
+                  v-on="on"
+                  class="pink"
+                  dark
+                  small
+                  fab
+                  color="warning"
+                  @click.prevent="fillProduct(product)"
+                >
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
               </template>
@@ -26,7 +37,15 @@
             </v-tooltip>
             <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" class="error" fab dark small @click.prevent="supprimeProduct(product)">
+                <v-btn
+                  v-bind="attrs"
+                  v-on="on"
+                  class="error"
+                  fab
+                  dark
+                  small
+                  @click.prevent="fillProductForDelete(product)"
+                >
                   <v-icon>mdi-delete</v-icon>
                 </v-btn>
               </template>
@@ -36,10 +55,9 @@
         </v-card>
       </v-timeline-item>
     </v-timeline>
-    <div class="text-center">
+    <!-- <div class="text-center">
       <v-dialog v-model="open">
         <v-card>
-          <v-progress-linear :active="loading" :indeterminate="loading" absolute height="10" bottom color="deep-orange"></v-progress-linear>
           <v-card-title class="headline red lighten-2"><v-icon>mdi-cloud-alert</v-icon>
             Attention 
           </v-card-title>
@@ -58,7 +76,7 @@
             <v-snackbar v-model="snackbar" :vertical="vertical">
               Le produit a bien été suprimer!!
               <template v-slot:action="{ attrs }">
-                <v-btn color="indigo" text v-bind="attrs" @click="snackbar = false">Close</v-btn>
+                <v-btn color="indigo" text v-bind="attrs" @click="snackbar = false,open = false">Close</v-btn>
               </template>
             </v-snackbar>
 
@@ -66,45 +84,85 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </div>
+    </div> -->
     <div>
       <v-form>
-        <v-dialog v-model="dialog" width=auto>
+        <v-dialog v-model="dialog" width="auto">
           <v-card>
-          <v-progress-linear :active="loading" :indeterminate="loading" absolute height="10" top color="green"></v-progress-linear>
-            <v-card-title class="green darken-1 text--center"><v-icon>mdi-pencil</v-icon> Editer le Produit</v-card-title>
+            <v-card-title class="green darken-1 text--center"
+              ><v-icon>mdi-pencil</v-icon> Editer le Produit</v-card-title
+            >
             <v-card-text>
               <v-container>
                 <v-row>
                   <input v-model="produit.id" hidden />
                   <v-col cols="12" md="4">
-                    <v-text-field v-model="produit.name" label="Name" required>{{ produit.name }}</v-text-field>
+                    <v-text-field
+                      v-model="produit.name"
+                      label="Name"
+                      required
+                      >{{ produit.name }}</v-text-field
+                    >
                   </v-col>
                   <v-col cols="12" md="4">
-                    <v-text-field v-model="produit.quantity" label="Quntite" type="number" required>{{ produit.quantity }}</v-text-field>
+                    <v-text-field
+                      v-model="produit.quantity"
+                      label="Quntite"
+                      type="number"
+                      required
+                      >{{ produit.quantity }}</v-text-field
+                    >
                   </v-col>
                   <v-col cols="12" md="4">
-                    <v-text-field v-model="produit.unite" label="Unite" required>{{ produit.unite }}</v-text-field>
+                    <v-text-field
+                      v-model="produit.unite"
+                      label="Unite"
+                      required
+                      >{{ produit.unite }}</v-text-field
+                    >
                   </v-col>
                   <v-col cols="12" md="4">
-                    <v-text-field v-model="produit.img" label="Image" required></v-text-field>
+                    <v-text-field
+                      v-model="produit.img"
+                      label="Image"
+                      required
+                    ></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn @click.prevent="dialog = false" outlined color="blue-grey" dark>Annuler</v-btn>
-              <v-btn @click.prevent="editProduct(produit),(loading = true), (snackbar1 = true)" color="green accent-3" outlined dark>
-                <v-icon>mdi-checkbox-marked-circle</v-icon>sauvegarder</v-btn>
-                 <v-snackbar v-model="snackbar1" :vertical="vertical">
-                  Le produit a bien été modifier!
-                  <template v-slot:action="{ attrs }">
-                    <v-btn color="indigo" text v-bind="attrs" @click="snackbar1 = false,dialog = false">Close</v-btn>
-                  </template>
-                </v-snackbar>
+              <v-btn
+                @click.prevent="dialog = false"
+                outlined
+                color="blue-grey"
+                dark
+                >Annuler</v-btn
+              >
+              <v-btn
+                @click.prevent="
+                  editProduct(produit), (loading = true), (snackbar1 = true)
+                "
+                color="green accent-3"
+                outlined
+                dark
+              >
+                <v-icon>mdi-checkbox-marked-circle</v-icon>sauvegarder</v-btn
+              >
+              <v-snackbar v-model="snackbar1" :vertical="vertical">
+                Le produit a bien été modifier!
+                <template v-slot:action="{ attrs }">
+                  <v-btn
+                    color="indigo"
+                    text
+                    v-bind="attrs"
+                    @click="(snackbar1 = false), (dialog = false)"
+                    >Close</v-btn
+                  >
+                </template>
+              </v-snackbar>
             </v-card-actions>
-           
           </v-card>
         </v-dialog>
       </v-form>
@@ -114,19 +172,24 @@
 
 <script>
 import { mapState } from "vuex";
+import deleteProduct from "./deleteProduct";
 
 export default {
   name: "products",
+  components: {
+    deleteProduct,
+  },
   data() {
     return {
       snackbar: false,
       snackbar1: false,
       vertical: true,
       dialog: false,
-      open: false,
+      
       loading: false,
       produit: {},
       prod: {},
+      openDelete: false,
     };
   },
 
@@ -144,20 +207,17 @@ export default {
       this.$store.dispatch("editProduct", product);
       this.dialog = true;
     },
-    remplirProduct(a) {
+    fillProduct(a) {
       this.dialog = true;
       this.produit = a;
     },
-    supprimeProduct(b) {
+    suppressProduct(b) {
       this.open = true;
       this.prod = b;
     },
-  },
-  watch: {
-    loading(val) {
-      if (!val) return;
-
-      setTimeout(() => (this.loading = false), 3000);
+     fillProductForDelete(a) {
+      this.openDelete = true;
+      this.produit = a;
     },
   },
 };

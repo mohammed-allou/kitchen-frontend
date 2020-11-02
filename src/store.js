@@ -20,7 +20,7 @@ const store = new Vuex.Store({
             state.isError = true
             state.error = errorMessage
         },
-        addProduct(state, products) {
+        ADD_PRODUCT(state, products) {
             state.products.push(products)
         },
         CREATION_OK(state) {
