@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import products from '../components/products'
 import addProduct from '../components/addProduct'
 import deleteProduct from '../components/deleteProduct'
+import editProduct from '../components/editProduct'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/deleteProduct',
     name: 'deleteProduct',
     component: deleteProduct
+  },
+  {
+    path: '/editProduct',
+    name: 'editProduct',
+    component: editProduct
   },
 ]
 

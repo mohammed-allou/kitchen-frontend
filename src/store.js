@@ -10,7 +10,12 @@ const store = new Vuex.Store({
         error: '',
         isError: false,
         messageOkCreation: "",
-        messageErrorCreation: ""
+        messageErrorCreation: "",
+        messageOkEdition: "",
+        messageErrorEdition: "",
+        messageOkSuppress: "",
+        messageErrorSuppress: ""
+
     },
     mutations: {
         SET_PRODUCTS(state, products) {
@@ -31,15 +36,38 @@ const store = new Vuex.Store({
         },
         EDIT_PRODUCT() {
 
-            
+
+        },
+        EDIT_OK(state) {
+            state.messageOkEdition = "Le produit est bien modifié."
+        },
+        EDITION_ERROR(state) {
+            state.messageErrorEdition = "Il y a un problème coté serveur.. merci de tester ultérieurement.."
         },
         DELETE_PRODUCT(state, product) {
             let index = state.products.findIndex(item => item.id === product.id)
             state.products.splice(index, 1)
+
+        },
+        SUPPRESS_OK(state) {
+
+            state.messageOkSuppress = "Le produit est bien suprimé."
+        },
+        SUPPRESS_ERROR(state) {
+            state.messageErrorSuppress = "Il y a un problème coté serveur.. merci de tester ultérieurement.."
+        },
+        INIT_CREAT_MESSAGE(state) {
+            state.messageOkCreation = ''
+        },
+        INIT_EDIT_MESSAGE(state) {
+            state.messageOkEdition = ''
+        },
+        INIT_DELETE_MESSAGE(state) {
+            state.messageOkSuppress = ''
         }
     },
-    
-    
+
+
     actions: {
         getProducts({ commit }) {
             axios
@@ -56,6 +84,7 @@ const store = new Vuex.Store({
             axios.post(`${URL_API_PRODUCT}/products`, product)
                 .then(response => {
                     console.log(response);
+                    commit('ADD_PRODUCT')
                     commit('CREATION_OK')
                 })
                 .catch(error => {
@@ -64,15 +93,14 @@ const store = new Vuex.Store({
                 });
         },
         editProduct({ commit }, product) {
-            axios.put(`${URL_API_PRODUCT}/products/${product.id}`, product, { headers: { 'Content-Type': 'application/json' } } )
+            axios.put(`${URL_API_PRODUCT}/products/${product.id}`, product, { headers: { 'Content-Type': 'application/json' } })
                 .then(response => {
                     console.log(response);
-                    commit('EDIT_PRODUCT', product)
-
+                    commit('EDIT_OK')
                 })
                 .catch(error => {
                     console.log(error);
-
+                    commit('EDITION_ERROR')
                 });
         },
         deleteProduct({ commit }, product) {
@@ -80,10 +108,24 @@ const store = new Vuex.Store({
                 .then(response => {
                     console.log(response);
                     commit('DELETE_PRODUCT', product)
+                    commit('SUPPRESS_OK')
                 }).catch(err => {
                     console.log(err)
+                    commit('SUPPRESS_ERROR')
                 })
-        }
+        },
+        initCreatMessage({ commit }) {
+            commit('INIT_CREAT_MESSAGE')
+        },
+        initEditMessage({ commit }) {
+            commit('INIT_EDIT_MESSAGE')
+        },
+        initDeleteMessage({ commit }) {
+            commit('INIT_DELETE_MESSAGE')
+        },
+
+
     },
+
 })
 export default store

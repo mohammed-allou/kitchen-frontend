@@ -2,13 +2,19 @@
   <div class="text-center">
     <v-dialog v-model="open">
       <v-card>
+        <v-alert type="warning" v-if="messageOkSuppress != ''">{{
+          messageOkSuppress
+        }}</v-alert>
+        <v-alert type="error" v-if="messageErrorSuppress != ''">{{
+          messageErrorSuppress
+        }}</v-alert>
         <v-card-title class="headline red lighten-2"
           ><v-icon>mdi-cloud-alert</v-icon>
           Attention
         </v-card-title>
         <v-card-text>
           <v-icon>mdi-error</v-icon>
-          Êtes-vous sûr de vouloir supprimer {{product.name}} ?
+          Êtes-vous sûr de vouloir supprimer {{ product.name }} ?
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -19,35 +25,23 @@
             color="orange"
             label
             outlined
-            @click.prevent="
-              deleteProduct(product), (loading = true), (snackbar = true)
-            "
+            @click.prevent="deleteProduct(product)"
           >
             J’accepte
           </v-btn>
-
-          <v-snackbar v-model="snackbar" :vertical="vertical">
-            Le produit a bien été suprimer!!
-            <template v-slot:action="{ attrs }">
-              <v-btn
-                color="indigo"
-                text
-                v-bind="attrs"
-                @click="(snackbar = false), (open = false)"
-                router
-                to="/"
-                >Close</v-btn
-              >
-            </template>
-          </v-snackbar>
 
           <v-btn
             color="grey"
             class="ma-2"
             label
             outlined
-            @click.prevent="open = false"
-            >Annuler</v-btn
+            @click.prevent="
+              close();
+              initMessage();
+            "
+            router
+            to="/"
+            >retour</v-btn
           >
         </v-card-actions>
       </v-card>
@@ -60,23 +54,20 @@ import { mapState } from "vuex";
 
 export default {
   name: "deleteProduct",
-  props: ["product","open"],
+  props: ["product", "open", "close"],
   data() {
-    return {
-      snackbar: false,
-      vertical: true,
-      
-    };
+    return {};
   },
   computed: {
-    ...mapState(["products", "isError", "error"]),
+    ...mapState(["messageOkSuppress", "messageErrorSuppress"]),
   },
-  mounted() {
-    this.$store.dispatch("getProducts");
-  },
+
   methods: {
     deleteProduct(product) {
       this.$store.dispatch("deleteProduct", product);
+    },
+    initMessage() {
+      this.$store.dispatch("initDeleteMessage");
     },
   },
 };

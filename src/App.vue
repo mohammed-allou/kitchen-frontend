@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="teal darken-3" dark>
+    <v-app-bar app color="brown lighten-3" dark>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
       <v-toolbar-title>Produits</v-toolbar-title>
