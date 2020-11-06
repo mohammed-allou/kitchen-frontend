@@ -8,10 +8,7 @@
         <v-alert type="error" v-if="messageErrorCreation != ''">{{
           messageErrorCreation
         }}</v-alert>
-        <v-card-title class="green lighten-3 brown--text text-center"
-          >Entrer votre Produit !</v-card-title
-        >
-
+        <v-card-title class="green lighten-3 brown--text text-center">Entrer votre Produit !</v-card-title>
         <v-container>
           <v-text-field
             v-model="product.name"
