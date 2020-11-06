@@ -42,8 +42,7 @@
           class="ma-2"
           outlined
           @click.prevent="addProduct(); (loading = true)"
-          :disabled="!product.name"
-        >
+          :disabled="!product.name">
           Valider
         </v-btn>
 

@@ -1,17 +1,7 @@
 <template>
   <div class="brown lighten-2">
-    <deleteProduct
-      v-if="openDelete"
-      :product="produit"
-      :open="openDelete"
-      :close="closeDelDialog"
-    />
-    <editProduct
-      v-if="openEdit"
-      :product="produit"
-      :dialog="openEdit"
-      :close="closeDialog"
-    />
+    <deleteProduct v-if="openDelete" :product="produit" :open="openDelete" :close="closeDelDialog" />
+    <editProduct v-if="openEdit" :product="produit" :dialog="openEdit" :close="closeDialog" />
 
     <v-container class="pa-4 text-center">
       <v-row class="fill-height" align="center" justify="center">
@@ -23,9 +13,7 @@
             <v-card class="mx-auto brown lighten-4" max-width="350">
               <v-img height="200px" contain :src="product.img"></v-img>
 
-              <v-card-title class="headline text-center">{{
-                product.name
-              }}</v-card-title>
+              <v-card-title class="headline text-center">{{ product.name }}</v-card-title>
 
               <v-card-text>
                 <div class="my-4 subtitle-1">
@@ -90,7 +78,7 @@ export default {
     return {
       openDelete: false,
       openEdit: false,
-      produit: {},
+      produit:{}
     };
   },
 
@@ -98,7 +86,7 @@ export default {
     ...mapState(["products", "isError", "error"]),
   },
   mounted() {
-    setTimeout(this.$store.dispatch("getProducts"), 6000);
+    this.$store.dispatch("getProducts");
   },
   methods: {
     fillProductForDelete(a) {
@@ -109,12 +97,12 @@ export default {
       this.openEdit = true;
       this.produit = b;
     },
-    closeDialog() {
-      this.openEdit = false;
+    closeDialog(){
+      this.openEdit=false
     },
-    closeDelDialog() {
-      this.openDelete = false;
-    },
+    closeDelDialog(){
+      this.openDelete=false
+    }
   },
 };
 </script>

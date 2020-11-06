@@ -12,8 +12,7 @@
       <v-spacer></v-spacer>
 
       <v-btn router to="/addProduct" class="mx-2" fab color="success">
-        <v-icon>mdi-plus</v-icon></v-btn
-      >
+        <v-icon>mdi-plus</v-icon></v-btn>
     </v-app-bar>
 
     <v-main>
