@@ -15,7 +15,6 @@ const store = new Vuex.Store({
         messageErrorEdition: "",
         messageOkSuppress: "",
         messageErrorSuppress: ""
-
     },
     mutations: {
         SET_PRODUCTS(state, products) {
@@ -31,10 +30,9 @@ const store = new Vuex.Store({
         CREATION_OK(state) {
             state.messageOkCreation = "Le produit est bien enregistré."
         },
-        EDIT_PRODUCT() {
-
-
-        },
+        CREATION_ERROR(state) {
+            state.messageErrorCreation = "Il y a un problème coté serveur.. merci de tester ultérieurement.."
+        },        
         EDIT_OK(state) {
             state.messageOkEdition = "Le produit est bien modifié."
         },
@@ -110,9 +108,6 @@ const store = new Vuex.Store({
         initDeleteMessage({ commit }) {
             commit('INIT_DELETE_MESSAGE')
         },
-
-
     },
-
 })
 export default store
